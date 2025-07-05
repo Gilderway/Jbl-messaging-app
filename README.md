@@ -147,7 +147,7 @@ jbl_chat/
 - Input validation and sanitization
 - Secure password handling
 
-## Development
+## Future Development
 
 ### Adding New Features
 
@@ -168,8 +168,6 @@ python jbl_chat/manage.py migrate
 # Reset database
 python jbl_chat/manage.py flush
 ```
-
-## Deployment
 
 ### Production Considerations
 
