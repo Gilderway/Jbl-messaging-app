@@ -4,20 +4,19 @@ from django.contrib.auth.models import User
 from .models import Message
 from .serializers import UserSerializer, MessageSerializer
 
+
+# API to list all users except the currently authenticated user
+
 class UserListAPIView(generics.ListAPIView):
-    """
-    API endpoint for listing all users (excluding current user)
-    """
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
     
     def get_queryset(self):
         return User.objects.exclude(id=self.request.user.id)
 
+# API endpoint to get conversation messages and sending new messages
+
 class ConversationAPIView(generics.ListCreateAPIView):
-    """
-    API endpoint for getting conversation messages and sending new messages
-    """
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
     
@@ -34,10 +33,9 @@ class ConversationAPIView(generics.ListCreateAPIView):
         other_user = User.objects.get(id=other_user_id)
         serializer.save(sender=self.request.user, recipient=other_user)
 
+# API to get all messages
+
 class MessageListAPIView(generics.ListAPIView):
-    """
-    API endpoint for listing all messages for a user
-    """
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
     
