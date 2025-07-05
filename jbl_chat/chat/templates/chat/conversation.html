@@ -1,0 +1,19 @@
+<div class="chat-box">
+  <div class="chat-header">Chat with {{ other_user.username }}</div>
+
+  <div class="messages-container" id="messages" hx-get="{% url 'refresh_messages' other_user.id %}"
+    hx-trigger="every 3s" hx-target="#messages" hx-swap="innerHTML">
+    {% include "chat/partials/message_list.html" %}
+  </div>
+
+  <div class="message-form">
+    <form hx-post="{% url 'send_message' other_user.id %}" hx-target="#messages" hx-swap="innerHTML"
+      class="message-input">
+      {% csrf_token %}
+      <input type="text" name="text" placeholder="Type your message..." class="form-control" autofocus required />
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-send"></i> Send
+      </button>
+    </form>
+  </div>
+</div>

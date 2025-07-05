@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Users - JBL Chat{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <div class="user-list">
+      <h3 class="mb-3">Users</h3>
+      {% for user in users %}
+      <div class="user-item" hx-get="{% url 'conversation' user.id %}" hx-target="#chatbox" hx-swap="innerHTML">
+        <div class="d-flex align-items-center">
+          <div class="avatar me-3">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center"
+              style="width: 40px; height: 40px; font-weight: bold">
+              {{ user.username|first|upper }}
+            </div>
+          </div>
+          <div>
+            <div class="fw-bold">{{ user.username }}</div>
+            <small class="text-muted">Click to chat</small>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-muted">No other users found.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="col-md-8">
+    <div id="chatbox">
+      <div class="chat-box">
+        <div class="chat-header">Select a user to start chatting</div>
+        <div class="messages-container d-flex align-items-center justify-content-center">
+          <div class="text-center text-muted">
+            <i class="bi bi-chat-dots" style="font-size: 3rem"></i>
+            <p class="mt-3">
+              Choose a user from the list to begin your conversation
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% for message in messages %}
+<div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+  <div class="message-bubble">
+    <div class="message-text">{{ message.text }}</div>
+    <div class="message-time">
+      {{ message.timestamp|time:"H:i" }}
+      {% if message.sender == request.user %}
+      <i class="bi bi-check2-all text-primary"></i>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% empty %}
+<div class="text-center text-muted mt-4">
+  <p>No messages yet. Start the conversation!</p>
+</div>
+{% endfor %}
